@@ -1,7 +1,7 @@
 ############################################################
 #                                                          #
 #          Autor: Karlo Gregório Guidoni Martins           #
-#            E-mail: kguidonimartins@gmail.com             # 
+#            E-mail: kguidonimartins@gmail.com             #
 #                                                          #
 ############################################################
 
@@ -16,7 +16,7 @@
 ############################################################
 
 # ipak function: install and load multiple R packages.
-# Check to see if packages are installed. 
+# Check to see if packages are installed.
 # Install them if they are not, then load them into the R session.
 # Forked from: https://gist.github.com/stevenworthington/3178163
 
@@ -31,9 +31,9 @@ ipak <- function(pkg){
 
 install.packages("packfor", repos = "http://R-Forge.R-project.org")
 
-ipak(packages <- c("vegan", 
-                   "packfor", 
-                   "tidyverse", 
+ipak(packages <- c("vegan",
+                   "packfor",
+                   "tidyverse",
                    "ggforce"))
 
 ############################################################
@@ -110,8 +110,8 @@ ab.varpart
 #                                                          #
 ############################################################
 
-fractions <- as.data.frame(rbind(ab.varpart$part$fract, 
-                                 ab.varpart$part$indfract), 
+fractions <- as.data.frame(rbind(ab.varpart$part$fract,
+                                 ab.varpart$part$indfract),
                            row.names = NULL)
 
 fractions$fractions <- rownames(fractions)
@@ -126,25 +126,25 @@ fractions <- as.data.frame(cbind(fractions, p.value))
 
 fractions <- transform(fractions, p.value = as.character(p.value))
 
-# ab.varpart$part$fract[1, ] : [a+b] = X1 
-fractions$p.value[1] <- 
-  anova.cca(rda(COM, X1), 
+# ab.varpart$part$fract[1, ] : [a+b] = X1
+fractions$p.value[1] <-
+  anova.cca(rda(COM, X1),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$fract[2, ] : [b+c] = X2 
-fractions$p.value[2] <- 
-  anova.cca(rda(COM, X2), 
+# ab.varpart$part$fract[2, ] : [b+c] = X2
+fractions$p.value[2] <-
+  anova.cca(rda(COM, X2),
             permutations = 9999)$`Pr(>F)`[1]
 # ab.varpart$part$fract[3, ] : [a+b+c] = X1+X2
-fractions$p.value[3] <- 
-  anova.cca(rda(COM, cbind(X1, X2), 
+fractions$p.value[3] <-
+  anova.cca(rda(COM, cbind(X1, X2),
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$indfract[1, ] : [a] = X1|X2 
-fractions$p.value[4] <- 
-  anova.cca(rda(COM, X1, X2), 
+# ab.varpart$part$indfract[1, ] : [a] = X1|X2
+fractions$p.value[4] <-
+  anova.cca(rda(COM, X1, X2),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$indfract[3, ] : [c] = X2|X1 
-fractions$p.value[6] <- 
-  anova.cca(rda(COM, X2, X1), 
+# ab.varpart$part$indfract[3, ] : [c] = X2|X1
+fractions$p.value[6] <-
+  anova.cca(rda(COM, X2, X1),
             permutations = 9999)$`Pr(>F)`[1]
 
 # Tabela de partição formatada
@@ -187,36 +187,36 @@ y <- c( 1.0,  1.0,  1.0)
                        y = c(1, 1)))
 
 ggplot(df.venn) +
-  geom_circle(aes(x0 = x, 
-                  y0 = y, 
-                  r = 1.5), 
-              alpha = .01, 
-              size = 0.5, 
+  geom_circle(aes(x0 = x,
+                  y0 = y,
+                  r = 1.5),
+              alpha = .01,
+              size = 0.5,
               colour = 'black') +
   coord_fixed() +
   theme_void() +
-  annotate("text", 
-           x = df.vdc$x, 
-           y = df.vdc$y, 
-           label = df.vdc$Counts, 
+  annotate("text",
+           x = df.vdc$x,
+           y = df.vdc$y,
+           label = df.vdc$Counts,
            size = 5) +
-  annotate(geom = "text", 
-           x = c(-2, 2), 
-           y = c(2.6, 2.6), 
-           label = c("Variable 1", 
-                     "Variable 2"), 
+  annotate(geom = "text",
+           x = c(-2, 2),
+           y = c(2.6, 2.6),
+           label = c("Variable 1",
+                     "Variable 2"),
            size = 6) +
-  annotate(geom = "text", 
-           x = 2, 
-           y = -0.8, 
+  annotate(geom = "text",
+           x = 2,
+           y = -0.8,
            label = "Residuals = ")
 # end model;
 
-############################################################
-#                                                          #
-#     Incluindo os valores da frações no novo gráfico      #
-#                                                          #
-############################################################
+#############################################################
+#                                                           #
+#     Incluindo os valores das frações no novo gráfico      #
+#                                                           #
+#############################################################
 
 # Frações
 df.vdc$Counts <- round(fractions[4:6, 4], digits = 2)
@@ -224,28 +224,28 @@ df.vdc$Counts <- round(fractions[4:6, 4], digits = 2)
 var.resid <- round(fractions[7, 4], digits = 2)
 
 ggplot(df.venn) +
-  geom_circle(aes(x0 = x, 
-                  y0 = y, 
-                  r = 1.5), 
-              alpha = .01, 
-              size = 0.5, 
+  geom_circle(aes(x0 = x,
+                  y0 = y,
+                  r = 1.5),
+              alpha = .01,
+              size = 0.5,
               colour = 'black') +
   coord_fixed() +
   theme_void() +
-  annotate("text", 
-           x = df.vdc$x, 
-           y = df.vdc$y, 
-           label = df.vdc$Counts, 
+  annotate("text",
+           x = df.vdc$x,
+           y = df.vdc$y,
+           label = df.vdc$Counts,
            size = 5) +
-  annotate(geom = "text", 
-           x = c(-2, 2), 
-           y = c(2.6, 2.6), 
-           label = c("Environment", 
-                     "Spatial filters"), 
+  annotate(geom = "text",
+           x = c(-2, 2),
+           y = c(2.6, 2.6),
+           label = c("Environment",
+                     "Spatial filters"),
            size = 6) +
-  annotate(geom = "text", 
-           x = 2, 
-           y = -0.8, 
+  annotate(geom = "text",
+           x = 2,
+           y = -0.8,
            label = paste("Residuals =", var.resid)) +
   xlim(-3, 3)
 
@@ -255,6 +255,6 @@ ggplot(df.venn) +
 #                                                          #
 ############################################################
 
-ggsave(filename = "varpart_2_expl_matrices.tiff", 
-       plot = last_plot(), 
+ggsave(filename = "varpart_2_expl_matrices.tiff",
+       plot = last_plot(),
        dpi = 300)

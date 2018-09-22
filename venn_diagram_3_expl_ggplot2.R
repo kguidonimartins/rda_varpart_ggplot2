@@ -1,7 +1,7 @@
 ############################################################
 #                                                          #
 #          Autor: Karlo Gregório Guidoni Martins           #
-#            E-mail: kguidonimartins@gmail.com             # 
+#            E-mail: kguidonimartins@gmail.com             #
 #                                                          #
 ############################################################
 
@@ -16,7 +16,7 @@
 ############################################################
 
 # ipak function: install and load multiple R packages.
-# Check to see if packages are installed. 
+# Check to see if packages are installed.
 # Install them if they are not, then load them into the R session.
 # Forked from: https://gist.github.com/stevenworthington/3178163
 
@@ -31,9 +31,9 @@ ipak <- function(pkg){
 
 install.packages("packfor", repos = "http://R-Forge.R-project.org")
 
-ipak(packages <- c("vegan", 
-                   "packfor", 
-                   "tidyverse", 
+ipak(packages <- c("vegan",
+                   "packfor",
+                   "tidyverse",
                    "ggforce"))
 
 ############################################################
@@ -132,9 +132,9 @@ ab.varpart
 #                                                          #
 ############################################################
 
-fractions <- as.data.frame(rbind(ab.varpart$part$fract, 
-                                 ab.varpart$part$indfract, 
-                                 ab.varpart$part$contr1), 
+fractions <- as.data.frame(rbind(ab.varpart$part$fract,
+                                 ab.varpart$part$indfract,
+                                 ab.varpart$part$contr1),
                            row.names = NULL)
 
 fractions$fractions <- rownames(fractions)
@@ -150,74 +150,74 @@ fractions <- as.data.frame(cbind(fractions, p.value))
 fractions <- transform(fractions, p.value = as.character(p.value))
 
 # ab.varpart$part$fract[1,] : [a+d+f+g] = X1
-fractions$p.value[1] <- 
-  anova.cca(rda(COM, X1), 
+fractions$p.value[1] <-
+  anova.cca(rda(COM, X1),
             permutations = 9999)$`Pr(>F)`[1]
 # ab.varpart$part$fract[2,] : [b+d+e+g] = X2
-fractions$p.value[2] <- 
-  anova.cca(rda(COM, X2), 
+fractions$p.value[2] <-
+  anova.cca(rda(COM, X2),
             permutations = 9999)$`Pr(>F)`[1]
 # ab.varpart$part$fract[3,] : [c+e+f+g] = X3
-fractions$p.value[3] <- 
-  anova.cca(rda(COM, X3), 
+fractions$p.value[3] <-
+  anova.cca(rda(COM, X3),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$fract[4,] : [a+b+d+e+f+g] = X1+X2 
-fractions$p.value[4] <- 
-  anova.cca(rda(COM, cbind(X1, X2), 
+# ab.varpart$part$fract[4,] : [a+b+d+e+f+g] = X1+X2
+fractions$p.value[4] <-
+  anova.cca(rda(COM, cbind(X1, X2),
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$fract[5,] : [a+c+d+e+f+g] = X1+X3 
-fractions$p.value[5] <- 
-  anova.cca(rda(COM, cbind(X1, X3), 
+# ab.varpart$part$fract[5,] : [a+c+d+e+f+g] = X1+X3
+fractions$p.value[5] <-
+  anova.cca(rda(COM, cbind(X1, X3),
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$fract[6,] : [b+c+d+e+f+g] = X2+X3 
-fractions$p.value[6] <- 
-  anova.cca(rda(COM, cbind(X2, X3), 
+# ab.varpart$part$fract[6,] : [b+c+d+e+f+g] = X2+X3
+fractions$p.value[6] <-
+  anova.cca(rda(COM, cbind(X2, X3),
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$fract[7,] : [a+b+c+d+e+f+g] = All 
-fractions$p.value[7] <- 
-  anova.cca(rda(COM, cbind(X1, X2, X3), 
+# ab.varpart$part$fract[7,] : [a+b+c+d+e+f+g] = All
+fractions$p.value[7] <-
+  anova.cca(rda(COM, cbind(X1, X2, X3),
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$indfract[1,] : [a] = X1 | X2+X3 
-fractions$p.value[8] <- 
-  anova.cca(rda(COM, X1, cbind(X2, X3)), 
+# ab.varpart$part$indfract[1,] : [a] = X1 | X2+X3
+fractions$p.value[8] <-
+  anova.cca(rda(COM, X1, cbind(X2, X3)),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$indfract[2,] : [b] = X2 | X1+X3 
-fractions$p.value[9] <- 
-  anova.cca(rda(COM, X2, cbind(X1, X3)), 
+# ab.varpart$part$indfract[2,] : [b] = X2 | X1+X3
+fractions$p.value[9] <-
+  anova.cca(rda(COM, X2, cbind(X1, X3)),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$indfract[3,] : [c] = X3 | X1+X2 
-fractions$p.value[10] <- 
-  anova.cca(rda(COM, X3, cbind(X1, X2)), 
+# ab.varpart$part$indfract[3,] : [c] = X3 | X1+X2
+fractions$p.value[10] <-
+  anova.cca(rda(COM, X3, cbind(X1, X2)),
             permutations = 9999)$`Pr(>F)`[1]
-# ab.varpart$part$contr1[1,] : [a+d] = X1 | X3 
-fractions$p.value[16] <- 
-  anova.cca(rda(COM, X1, X3, 
+# ab.varpart$part$contr1[1,] : [a+d] = X1 | X3
+fractions$p.value[16] <-
+  anova.cca(rda(COM, X1, X3,
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$contr1[2,] : [a+f] = X1 | X2 
-fractions$p.value[17] <- 
-  anova.cca(rda(COM, X1, X2, 
+# ab.varpart$part$contr1[2,] : [a+f] = X1 | X2
+fractions$p.value[17] <-
+  anova.cca(rda(COM, X1, X2,
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$contr1[3,] : [b+d] = X2 | X3 
-fractions$p.value[18] <- 
-  anova.cca(rda(COM, X2, X3, 
+# ab.varpart$part$contr1[3,] : [b+d] = X2 | X3
+fractions$p.value[18] <-
+  anova.cca(rda(COM, X2, X3,
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$contr1[4,] : [b+e] = X2 | X1 
-fractions$p.value[19] <- 
-  anova.cca(rda(COM, X2, X1, 
+# ab.varpart$part$contr1[4,] : [b+e] = X2 | X1
+fractions$p.value[19] <-
+  anova.cca(rda(COM, X2, X1,
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$contr1[5,] : [c+e] = X3 | X1 
-fractions$p.value[20] <- 
-  anova.cca(rda(COM, X3, X1, 
+# ab.varpart$part$contr1[5,] : [c+e] = X3 | X1
+fractions$p.value[20] <-
+  anova.cca(rda(COM, X3, X1,
                 permutations = 9999))$`Pr(>F)`[1]
-# ab.varpart$part$contr1[6,] : [c+f] = X3 | X2 
-fractions$p.value[21] <- 
-  anova.cca(rda(COM, X3, X2, 
+# ab.varpart$part$contr1[6,] : [c+f] = X3 | X2
+fractions$p.value[21] <-
+  anova.cca(rda(COM, X3, X2,
                 permutations = 9999))$`Pr(>F)`[1]
 
 # Tabela de partição formatada
-knitr::kable(x = fractions, 
-             format = "markdown", 
-             digits = 3, 
+knitr::kable(x = fractions,
+             format = "markdown",
+             digits = 3,
              caption = "Partition table")
 
 ############################################################
@@ -252,38 +252,38 @@ y <- c( 1.2,  1.2, -1.0,  1.5,  0.0,  0.0,  0.5)
                        y = c(-0.5, 1, 1)))
 
 ggplot(df.venn) +
-  geom_circle(aes(x0 = x, 
+  geom_circle(aes(x0 = x,
                   y0 = y,
-                  r = 1.5), 
-              alpha = .01, 
-              size = 0.5, 
+                  r = 1.5),
+              alpha = .01,
+              size = 0.5,
               colour = 'black') +
   coord_fixed() +
   theme_void() +
   theme(legend.position = "none") +
-  annotate("text", 
-           x = df.vdc$x, 
-           y = df.vdc$y, 
-           label = df.vdc$Counts, 
+  annotate("text",
+           x = df.vdc$x,
+           y = df.vdc$y,
+           label = df.vdc$Counts,
            size = 5) +
   annotate(geom = "text",
-           x = c(-2, 2, 0), 
-           y = c(2.6, 2.6, -2.2), 
-           label = c("Variable 1", 
-                     "Variable 2", 
-                     "Variable 3"), 
+           x = c(-2, 2, 0),
+           y = c(2.6, 2.6, -2.2),
+           label = c("Variable 1",
+                     "Variable 2",
+                     "Variable 3"),
            size = 6) +
-  annotate(geom = "text", 
-           x = 2, 
-           y = -2.4, 
+  annotate(geom = "text",
+           x = 2,
+           y = -2.4,
            label = "Residuals = ")
 # end model;
 
-############################################################
-#                                                          #
-#     Incluindo os valores da frações no novo gráfico      #
-#                                                          #
-############################################################
+#############################################################
+#                                                           #
+#     Incluindo os valores das frações no novo gráfico      #
+#                                                           #
+#############################################################
 
 # Frações
 df.vdc$Counts <- round(fractions[8:14, 4], digits = 2)
@@ -310,8 +310,8 @@ ggplot(df.venn) +
     geom = "text",
     x = c(-2, 2, 0),
     y = c(2.7, 2.7, -2.2),
-    label = c("Environment", 
-              "Linear spatial trend", 
+    label = c("Environment",
+              "Linear spatial trend",
               "Spatial Filters"),
     size = 6
   ) +
@@ -330,6 +330,6 @@ ggplot(df.venn) +
 #                                                          #
 ############################################################
 
-ggsave(filename = "varpart_3_expl_matrices.tiff", 
-       plot = last_plot(), 
+ggsave(filename = "varpart_3_expl_matrices.tiff",
+       plot = last_plot(),
        dpi = 300)
