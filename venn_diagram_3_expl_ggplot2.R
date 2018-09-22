@@ -318,10 +318,10 @@ ggplot(df.venn) +
   annotate(
     geom = "text",
     x = 2,
-    y = -2.4,
+    y = -2.6,
     label = paste("Residuals =", var.resid)
   ) +
-  xlim(c(-3, 3)) +
+  xlim(c(-4, 4)) +
   ylim(c(-3, 3))
 
 ############################################################

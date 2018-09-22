@@ -246,7 +246,8 @@ ggplot(df.venn) +
   annotate(geom = "text", 
            x = 2, 
            y = -0.8, 
-           label = paste("Residuals =", var.resid))
+           label = paste("Residuals =", var.resid)) +
+  xlim(-3, 3)
 
 ############################################################
 #                                                          #
