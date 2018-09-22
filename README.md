@@ -20,11 +20,11 @@ Os scripts abaixo utilizam os dados disponíveis no pacote `vegan`.
 
 # Diagrama de Venn para duas matrizes explanatórias
 
-![](img/varpart2.png)
+![](img/varpart2-trim.png)
 
 # Diagrama de Venn para três matrizes explanatórias
 
-![](img/varpart3.png)
+![](img/varpart3-trim.png)
 
 # Referência consultadas
 

@@ -29,12 +29,15 @@ ipak <- function(pkg){
   suppressPackageStartupMessages(sapply(pkg, require, character.only = TRUE))
 }
 
-install.packages("packfor", repos = "http://R-Forge.R-project.org")
+if (!require(packfor)) {
+  install.packages("packfor", repos = "http://R-Forge.R-project.org")
+}
 
 ipak(packages <- c("vegan",
                    "packfor",
                    "tidyverse",
-                   "ggforce"))
+                   "ggforce",
+                   "magick"))
 
 ############################################################
 #                                                          #
@@ -333,3 +336,16 @@ ggplot(df.venn) +
 ggsave(filename = "varpart_3_expl_matrices.tiff",
        plot = last_plot(),
        dpi = 300)
+
+############################################################
+#                                                          #
+#  Excluir espaços em branco entorno da figura (opcional)  #
+#                                                          #
+############################################################
+
+img <- image_read(path = "img/varpart3.png") 
+
+image_trim(img) %>% 
+  image_write(image = ., 
+              path = "img/varpart3-trim.png", 
+              format = "png")
